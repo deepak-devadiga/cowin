@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
-import { SchedulePage } from '../schedule/schedule';
+import { AnalyticsPage } from '../analytics/analytics';
 
 
 const routes: Routes = [
@@ -10,11 +10,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'schedule',
+        path: 'analytics',
         children: [
           {
             path: '',
-            component: SchedulePage,
+            component: AnalyticsPage,
           },
           {
             path: 'session/:sessionId',
@@ -23,11 +23,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'speakers',
+        path: 'vaccination',
         children: [
           {
             path: '',
-            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule)
+            loadChildren: () => import('../vaccination/vaccination.module').then(m => m.VaccinationModule)
           },
           {
             path: 'session/:sessionId',
@@ -59,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/app/tabs/schedule',
+        redirectTo: '/app/tabs/analytics',
         pathMatch: 'full'
       }
     ]

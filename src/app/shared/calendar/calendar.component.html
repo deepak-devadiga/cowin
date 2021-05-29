@@ -1,0 +1,4 @@
+<ion-label position="stacked">{{calendarData?.label}}</ion-label>
+<ion-datetime placeholder="Select a Date" [value]="now" [pickerOptions]="customPickerOptions"
+  [displayFormat]="calendarData?.format" [min]="calendarData?.minDate" [max]="calendarData?.maxDate">
+</ion-datetime>

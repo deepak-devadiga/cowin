@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Vaccination</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="ion-padding">
+  <ion-title>
+    Search nearby vaccination center
+  </ion-title>
+  <ion-grid>
+    <ion-row>
+      <ion-toolbar>
+        <ion-segment (ionChange)="searchBySelectionHandler($event)" [value]="searchBy.DISTRICT">
+          <ion-segment-button [value]="searchBy.DISTRICT">
+            <!-- <ion-icon name="camera"></ion-icon> -->
+            <ion-label>District</ion-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="searchBy.PINCODE">
+            <!-- <ion-icon name="bookmark"></ion-icon> -->
+            <ion-label>Pincode</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+      </ion-toolbar>
+    </ion-row>
+    <ion-row *ngIf="selectedSearchOption == searchBy.DISTRICT">
+      <ion-col size="12">
+        <div class="selection">
+          <ion-item>
+            <ion-label position="stacked">Select a state</ion-label>
+            <ion-select [interfaceOptions]="customAlertOptionsState" interface="alert" [(ngModel)]="selectedState"
+              value="India" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a State"
+              (ionChange)="selectStateHandler()">
+              <ion-select-option [value]="state" *ngFor="let state of states">
+                {{state?.state_name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="selection">
+          <ion-item>
+            <ion-label position="stacked">Select a District</ion-label>
+            <ion-select [interfaceOptions]="customAlertOptionsDistrict" interface="alert" [(ngModel)]="selectedDistrict"
+              value="India" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a District"
+              [disabled]="!districts">
+              <ion-select-option [value]="district" *ngFor="let district of districts">
+                {{district?.district_name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-col>
+
+    </ion-row>
+    <ion-row *ngIf="selectedSearchOption == searchBy.PINCODE">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">Enter Pincode</ion-label>
+          <ion-input enterkeyhint="search" inputmode="tel" maxlength="6" minlength="6" name="pincode"
+            placeholder="Enter the Pincode" [(ngModel)]="pincode"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <calendar [calendarData]="calendarData"></calendar>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label>Show all slots</ion-label>
+          <ion-toggle color="primary" [checked]="showAll" slot="end" [(ngModel)]="showAll"></ion-toggle>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-note color="primary">By default shows available slots for today.</ion-note>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="MTB-20">
+      <ion-col col-12>
+        <ion-button expand="block" fill="solid" (click)="searchVaccineHandler()">Search</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="resultsReady">
+    <ion-row>
+      <div id="results">
+        <accordion [slotsData]="slotsData"></accordion>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

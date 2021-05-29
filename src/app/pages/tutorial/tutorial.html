@@ -9,37 +9,42 @@
 <ion-content fullscreen="true">
   <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager="false">
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
+      <img src="assets/img/tutorial/intro.svg" class="slide-image" />
       <h2 class="slide-title">
         Welcome to
-        <b>ICA</b>
+        <b>Covid Update Tracker</b>
       </h2>
       <p>
-        The
-        <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code
-        use.
+        This
+        app guides you through all the <b>realtime updates of covid cases, latest news and nearby vaccine centers and
+          availability.</b>
       </p>
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic?</h2>
+      <img src="assets/img/tutorial/tracker.svg" class="slide-image" />
+      <h2 class="slide-title">Tracker</h2>
       <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies
-        like HTML, CSS, and JavaScript.</p>
+        <b>Tracks</b> day to day new cases count, active count, reccovered count and deceased count as well as vaccine
+        administered counts.
+      </p>
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic Appflow?</h2>
+      <img src="assets/img/tutorial/updates.svg" class="slide-image" />
+      <h2 class="slide-title">Updates</h2>
       <p>
-        <b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new
-        level of app development agility to mobile dev teams.</p>
+        <b>Provides</b> latest trusted news updates, safety measures and other news related to covid shared by
+        community.
+      </p>
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">Ready to Play?</h2>
+      <img src="assets/img/tutorial/vaccine.svg" class="slide-image" />
+      <h2 class="slide-title">Vaccination</h2>
+      <p>
+        <b>Realtime</b> updates on nearby vaccine centers and availability of vaccines.
+      </p>
       <ion-button fill="clear" (click)="startApp()">
         Continue
         <ion-icon slot="end" name="arrow-forward"></ion-icon>
@@ -47,3 +52,11 @@
     </ion-slide>
   </ion-slides>
 </ion-content>
+<ion-footer>
+  <ion-button class="previous" fill="clear" start [hidden]="!showStart" (click)="slidePrevious()">
+    <ion-icon slot="icon-only" name="caret-back-outline"></ion-icon>
+  </ion-button>
+  <ion-button class="next" fill="clear" end [hidden]="!showSkip" (click)="slideNext()">
+    <ion-icon slot="icon-only" name="caret-forward-outline"></ion-icon>
+  </ion-button>
+</ion-footer>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
@@ -7,10 +7,12 @@ import { TabsPageRoutingModule } from './tabs-page-routing.module';
 
 import { AboutModule } from '../about/about.module';
 import { MapModule } from '../map/map.module';
-import { ScheduleModule } from '../schedule/schedule.module';
+import { AnalyticsModule } from '../analytics/analytics.module';
 import { SessionDetailModule } from '../session-detail/session-detail.module';
 import { SpeakerDetailModule } from '../speaker-detail/speaker-detail.module';
-import { SpeakerListModule } from '../speaker-list/speaker-list.module';
+import { VaccinationModule } from '../vaccination/vaccination.module';
+
+
 
 @NgModule({
   imports: [
@@ -18,14 +20,15 @@ import { SpeakerListModule } from '../speaker-list/speaker-list.module';
     CommonModule,
     IonicModule,
     MapModule,
-    ScheduleModule,
+    AnalyticsModule,
     SessionDetailModule,
     SpeakerDetailModule,
-    SpeakerListModule,
+    VaccinationModule,
     TabsPageRoutingModule
   ],
   declarations: [
     TabsPage,
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TabsModule { }

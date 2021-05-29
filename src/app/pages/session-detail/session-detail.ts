@@ -22,9 +22,9 @@ export class SessionDetailPage {
 
   ionViewWillEnter() {
     this.dataProvider.load().subscribe((data: any) => {
-      if (data && data.schedule && data.schedule[0] && data.schedule[0].groups) {
+      if (data && data.analytics && data.analytics[0] && data.analytics[0].groups) {
         const sessionId = this.route.snapshot.paramMap.get('sessionId');
-        for (const group of data.schedule[0].groups) {
+        for (const group of data.analytics[0].groups) {
           if (group && group.sessions) {
             for (const session of group.sessions) {
               if (session && session.id === sessionId) {
@@ -44,7 +44,7 @@ export class SessionDetailPage {
   }
 
   ionViewDidEnter() {
-    this.defaultHref = `/app/tabs/schedule`;
+    this.defaultHref = `/app/tabs/analytics`;
   }
 
   sessionClick(item: string) {

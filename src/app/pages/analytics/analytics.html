@@ -1,0 +1,57 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons *ngIf="!showSearchbar" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Covid Analytics</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content fullscreen="true" class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">State</ion-label>
+          <ion-select [(ngModel)]="stateAnalytics" okText="Okay" cancelText="Dismiss" mode="ios"
+            [value]="analyticsData[0]" (ionChange)="selectStateHandler()" [compareWith]="compareWith">
+            <ion-select-option *ngFor="let stateAnalytics of analyticsData" [value]="stateAnalytics">
+              {{stateAnalytics?.state_name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size='12'>
+        <ion-title>Overall cases</ion-title>
+
+      </ion-col>
+
+      <ion-col size='12'>
+        <app-chart [doughnutChartLabels]="totalLabel" [doughnutChartData]="totalData"
+          [doughnutChartColors]="totalColors" [dimension]="dimension">
+        </app-chart>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-title>Latest cases</ion-title>
+        <ion-note color='tertiary' *ngIf="lastUpdatedAt !== ''"> <small> Last updated at
+            {{lastUpdatedAt}}</small>
+        </ion-note>
+      </ion-col>
+
+      <ion-col size='12'>
+        <app-chart [doughnutChartLabels]="totalLabel" [doughnutChartData]="totalData"
+          [doughnutChartColors]="totalColors" [dimension]="dimension">
+        </app-chart>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

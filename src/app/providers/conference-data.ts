@@ -11,7 +11,7 @@ import { UserData } from './user-data';
 export class ConferenceData {
   data: any;
 
-  constructor(public http: HttpClient, public user: UserData) {}
+  constructor(public http: HttpClient, public user: UserData) { }
 
   load(): any {
     if (this.data) {
@@ -28,8 +28,8 @@ export class ConferenceData {
     // build up the data by linking speakers to sessions
     this.data = data;
 
-    // loop through each day in the schedule
-    this.data.schedule.forEach((day: any) => {
+    // loop through each day in the analytics
+    this.data.analytics.forEach((day: any) => {
       // loop through each timeline group in the day
       day.groups.forEach((group: any) => {
         // loop through each session in the timeline group
@@ -62,7 +62,7 @@ export class ConferenceData {
   ) {
     return this.load().pipe(
       map((data: any) => {
-        const day = data.schedule[dayIndex];
+        const day = data.analytics[dayIndex];
         day.shownSessions = 0;
 
         queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');

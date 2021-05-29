@@ -5,16 +5,17 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class CheckTutorial implements CanLoad {
-  constructor(private storage: Storage, private router: Router) {}
+  constructor(private storage: Storage, private router: Router) { }
 
   canLoad() {
     return this.storage.get('ion_did_tutorial').then(res => {
       if (res) {
-        this.router.navigate(['/app', 'tabs', 'schedule']);
+        this.router.navigate(['/app', 'tabs', 'analytics']);
         return false;
       } else {
         return true;
       }
     });
+    return true
   }
 }

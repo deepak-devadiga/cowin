@@ -20,14 +20,14 @@ export class SignupPage {
   constructor(
     public router: Router,
     public userData: UserData
-  ) {}
+  ) { }
 
   onSignup(form: NgForm) {
     this.submitted = true;
 
     if (form.valid) {
       this.userData.signup(this.signup.username);
-      this.router.navigateByUrl('/app/tabs/schedule');
+      this.router.navigateByUrl('/app/tabs/analytics');
     }
   }
 }

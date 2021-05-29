@@ -1,0 +1,5 @@
+<div class="chartjs-container" *ngIf="dataAvailable">
+  <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+    [colors]="doughnutChartColors" [width]="dimension.width" [height]="dimension.height" [options]="chartOptions">
+  </canvas>
+</div>

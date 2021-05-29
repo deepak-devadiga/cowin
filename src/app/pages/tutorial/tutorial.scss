@@ -1,6 +1,15 @@
 ion-toolbar {
   --background: transparent;
   --border-color: transparent;
+  &::before {
+    background-image: none;
+  }
+}
+
+ion-header {
+  &::after {
+    background-image: none;
+  }
 }
 
 .swiper-slide {
@@ -30,5 +39,13 @@ p {
 
   b {
     color: var(--ion-text-color, #000000);
+  }
+}
+ion-footer {
+  ion-button.next {
+    float: right;
+  }
+  &::before {
+    background-image: none;
   }
 }

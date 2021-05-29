@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 
 import { UserData } from './providers/user-data';
+import { Spinkit } from 'ng-http-loader';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,13 @@ import { UserData } from './providers/user-data';
 export class AppComponent implements OnInit {
   appPages = [
     {
-      title: 'Schedule',
-      url: '/app/tabs/schedule',
-      icon: 'calendar'
+      title: 'Analytics',
+      url: '/app/tabs/analytics',
+      icon: 'analytics-outline'
     },
     {
-      title: 'Speakers',
-      url: '/app/tabs/speakers',
+      title: 'Vaccination',
+      url: '/app/tabs/vaccination',
       icon: 'people'
     },
     {
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
   ];
   loggedIn = false;
   dark = false;
-
+  public spinkit = Spinkit;
   constructor(
     private menu: MenuController,
     private platform: Platform,
@@ -117,7 +118,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
+      return this.router.navigateByUrl('/app/tabs/analytics');
     });
   }
 
