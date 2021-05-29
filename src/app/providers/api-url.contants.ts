@@ -29,3 +29,8 @@ export const API_CONSTANTS = {
     }
   }
 }
+
+
+export const LoaderExcludes = [
+
+]

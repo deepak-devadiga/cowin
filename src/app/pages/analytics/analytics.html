@@ -22,27 +22,15 @@
 
 <ion-content fullscreen="true">
 
+
   <ion-grid>
-    <!-- <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label position="stacked">State</ion-label>
-          <ion-select [(ngModel)]="stateAnalytics" okText="Okay" cancelText="Dismiss" mode="ios"
-            [value]="analyticsData[0]" (ionChange)="selectStateHandler()" [compareWith]="compareWith">
-            <ion-select-option *ngFor="let stateAnalytics of analyticsData" [value]="stateAnalytics">
-              {{stateAnalytics?.state_name}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row> -->
     <ion-row>
 
       <ion-col size='12'>
         <ion-card>
           <div class="card-chart">
             <app-chart [doughnutChartLabels]="totalLabel" [doughnutChartData]="totalData"
-              [doughnutChartColors]="totalColors" [dimension]="dimension">
+              [doughnutChartColors]="totalColors" [dimension]="dimension" *ngIf="showChart">
             </app-chart>
           </div>
 
@@ -64,11 +52,12 @@
       <ion-col size='12'>
 
         <ion-card>
-          <div class="card-chart">
+          <div class="card-chart" *ngIf="!latestDataIssue?.status">
             <app-chart [doughnutChartLabels]="totalLatestLabel" [doughnutChartData]="totalLatestData"
-              [doughnutChartColors]="totalLatestColors" [dimension]="dimension">
+              [doughnutChartColors]="totalLatestColors" [dimension]="dimension" *ngIf="showChart">
             </app-chart>
           </div>
+          <data-issue [dataIssueType]="latestDataIssue?.type" *ngIf="latestDataIssue?.status"></data-issue>
           <ion-card-header>
             <ion-card-subtitle> Latest by {{lastUpdatedAt}}</ion-card-subtitle>
             <ion-card-title>Latest Cases</ion-card-title>

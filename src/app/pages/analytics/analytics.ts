@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import { forkJoin, interval } from 'rxjs';
+import { BehaviorSubject, forkJoin, interval, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { AnalyticsColor } from '../../enums/analytics-color.enum';
+import { DataIssue } from '../../enums/data-issue.enum';
 import { AnalyticsModel } from '../../models/Analytics.model';
 import { State } from '../../models/State.model';
 import { AnalyticsService } from '../../providers/analytics.service';
@@ -43,21 +44,28 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   totalLatestData: any[] = [];
   totalLatestLabel: string[] = [];
   totalLatestColors: { backgroundColor: AnalyticsColor[]; }[] = [];
-
+  showChart: boolean = false;
+  latestDataIssue: { type: DataIssue, status: boolean } = { type: null, status: false };
+  dataIssue: { type: DataIssue, status: boolean } = { type: null, status: false };
 
   constructor(public config: Config, private analyticsSrv: AnalyticsService, private geoSrv: GeographicService) { }
 
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
+    this.getInitData();
+  }
+
+
+  getInitData() {
     forkJoin([this.geoSrv.getStates(), this.analyticsSrv.getCovidCount()]).subscribe(([allStates, covidCount]: any) => {
       console.log('getStates ', allStates, 'covidCount', covidCount);
       this.allStates = allStates.states;
       this.stateWiseCount = covidCount;
       this.combineStateWithCount();
-      this.getStateWiseCovidCount()
+      this.getStateWiseCovidCount();
     });
-  }
 
+  }
   getStateWiseCovidCount() {
     this.intervalInstance = interval(2 * 60 * 1000)
       .pipe(
@@ -69,6 +77,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
           this.combineStateWithCount()
       })
   }
+
 
   combineStateWithCount() {
     let allStatesAnalytics: AnalyticsModel[] = [];
@@ -92,8 +101,10 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   }
 
   selectStateHandler() {
+    this.showChart = false;
     console.log('selected', this.stateAnalytics);
     if (this.stateAnalytics.data !== undefined) {
+      this.showChart = true
       this.calculateOverallCases();
       this.calculateLatestCases();
     }
@@ -125,23 +136,35 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   calculateLatestCases() {
     const temp = new Date(this.stateAnalytics.data.meta.last_updated)
     this.lastUpdatedAt = temp.toLocaleString('en-IN', { hour12: true, month: 'long', day: '2-digit', weekday: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    this.totalLatestData = [
-      this.stateAnalytics.data.delta.confirmed,
-      this.stateAnalytics.data.delta.deceased,
-      this.stateAnalytics.data.delta.recovered,
-      // this.stateAnalytics.data.delta.confirmed - (this.stateAnalytics.data.total.deceased + this.stateAnalytics.data.total.recovered),
-    ];
-    this.totalLatestLabel = [
-      'Confirmed', 'Deceased', 'Recovered'
-    ];
-    this.totalLatestColors = [{
-      backgroundColor: [AnalyticsColor.CONFIRMED, AnalyticsColor.DECEASED, AnalyticsColor.RECOVERED, AnalyticsColor.ACTIVE]
-    }];
+    if (this.stateAnalytics.data.delta == undefined) {
+      this.latestDataIssue.status = true;
+      this.latestDataIssue.type = DataIssue.UNDER_PROCESS;
+    } else if (this.stateAnalytics.data.delta.confirmed == undefined || this.stateAnalytics.data.delta.deceased == undefined || this.stateAnalytics.data.delta.recovered == undefined) {
+      this.latestDataIssue.status = true;
+      this.latestDataIssue.type = DataIssue.PARTIAL_DATA;
+    } else {
+      this.latestDataIssue.status = false;
+      this.latestDataIssue.type = null;
+      this.totalLatestData = [
+        this.stateAnalytics.data.delta.confirmed,
+        this.stateAnalytics.data.delta.deceased,
+        this.stateAnalytics.data.delta.recovered,
+        // this.stateAnalytics.data.delta.confirmed - (this.stateAnalytics.data.total.deceased + this.stateAnalytics.data.total.recovered),
+      ];
+      this.totalLatestLabel = [
+        'Confirmed', 'Deceased', 'Recovered'
+      ];
+      this.totalLatestColors = [{
+        backgroundColor: [AnalyticsColor.CONFIRMED, AnalyticsColor.DECEASED, AnalyticsColor.RECOVERED, AnalyticsColor.ACTIVE]
+      }];
 
-    this.dimension = {
-      width: (screen.width - 40),
-      height: (screen.width - 80)
+      this.dimension = {
+        width: (screen.width - 40),
+        height: (screen.width - 80)
+      }
     }
+    console.log('latestDataIssue', this.latestDataIssue);
+
   }
 
   compareWith(o1: AnalyticsModel, o2: AnalyticsModel) {
