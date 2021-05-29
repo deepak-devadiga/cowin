@@ -40,6 +40,9 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   totalColors = [];
   dimension: { width: number; height: number; };
   overallLastUpdatedAt: string;
+  totalLatestData: any[] = [];
+  totalLatestLabel: string[] = [];
+  totalLatestColors: { backgroundColor: AnalyticsColor[]; }[] = [];
 
 
   constructor(public config: Config, private analyticsSrv: AnalyticsService, private geoSrv: GeographicService) { }
@@ -56,7 +59,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   }
 
   getStateWiseCovidCount() {
-    this.intervalInstance = interval(60 * 1000)
+    this.intervalInstance = interval(2 * 60 * 1000)
       .pipe(
         mergeMap(() => this.analyticsSrv.getCovidCount())
       )
@@ -75,7 +78,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
     const allState: AnalyticsModel = {
       state_id: 0,
       state_acronym: 'IN',
-      state_name: 'India',
+      state_name: 'All',
       data: this.stateWiseCount.TT
     }
     allStatesAnalytics.unshift(allState);
@@ -92,6 +95,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
     console.log('selected', this.stateAnalytics);
     if (this.stateAnalytics.data !== undefined) {
       this.calculateOverallCases();
+      this.calculateLatestCases();
     }
   }
 
@@ -121,16 +125,16 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   calculateLatestCases() {
     const temp = new Date(this.stateAnalytics.data.meta.last_updated)
     this.lastUpdatedAt = temp.toLocaleString('en-IN', { hour12: true, month: 'long', day: '2-digit', weekday: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    this.totalData = [
-      this.stateAnalytics.data.total.confirmed,
-      this.stateAnalytics.data.total.deceased,
-      this.stateAnalytics.data.total.recovered,
-      this.stateAnalytics.data.total.confirmed - (this.stateAnalytics.data.total.deceased + this.stateAnalytics.data.total.recovered),
+    this.totalLatestData = [
+      this.stateAnalytics.data.delta.confirmed,
+      this.stateAnalytics.data.delta.deceased,
+      this.stateAnalytics.data.delta.recovered,
+      // this.stateAnalytics.data.delta.confirmed - (this.stateAnalytics.data.total.deceased + this.stateAnalytics.data.total.recovered),
     ];
-    this.totalLabel = [
-      'Confirmed', 'Deceased', 'Recovered', 'Active'
+    this.totalLatestLabel = [
+      'Confirmed', 'Deceased', 'Recovered'
     ];
-    this.totalColors = [{
+    this.totalLatestColors = [{
       backgroundColor: [AnalyticsColor.CONFIRMED, AnalyticsColor.DECEASED, AnalyticsColor.RECOVERED, AnalyticsColor.ACTIVE]
     }];
 

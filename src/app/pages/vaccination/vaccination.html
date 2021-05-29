@@ -33,7 +33,7 @@
           <ion-item>
             <ion-label position="stacked">Select a state</ion-label>
             <ion-select [interfaceOptions]="customAlertOptionsState" interface="alert" [(ngModel)]="selectedState"
-              value="India" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a State"
+              value="All" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a State"
               (ionChange)="selectStateHandler()">
               <ion-select-option [value]="state" *ngFor="let state of states">
                 {{state?.state_name}}
@@ -47,7 +47,7 @@
           <ion-item>
             <ion-label position="stacked">Select a District</ion-label>
             <ion-select [interfaceOptions]="customAlertOptionsDistrict" interface="alert" [(ngModel)]="selectedDistrict"
-              value="India" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a District"
+              value="All" okText="Okay" cancelText="Dismiss" mode="ios" placeholder="Select a District"
               [disabled]="!districts">
               <ion-select-option [value]="district" *ngFor="let district of districts">
                 {{district?.district_name}}

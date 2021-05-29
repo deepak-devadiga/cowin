@@ -96,3 +96,9 @@ ion-header::after {
   background-color: #ccc;
   opacity: 0.4;
 }
+
+ion-card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  -moz-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
