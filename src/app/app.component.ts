@@ -25,22 +25,22 @@ export class AppComponent implements OnInit {
     {
       title: 'Analytics',
       url: '/app/tabs/analytics',
-      icon: 'analytics-outline'
+      icon: 'analytics'
     },
     {
       title: 'Vaccination',
       url: '/app/tabs/vaccination',
-      icon: 'people'
+      icon: 'medkit'
     },
     {
-      title: 'Map',
-      url: '/app/tabs/map',
-      icon: 'map'
+      title: 'News',
+      url: '/app/tabs/news',
+      icon: 'newspaper'
     },
     {
-      title: 'About',
-      url: '/app/tabs/about',
-      icon: 'information-circle'
+      title: 'Health',
+      url: '/app/tabs/health',
+      icon: 'medical'
     }
   ];
   loggedIn = false;

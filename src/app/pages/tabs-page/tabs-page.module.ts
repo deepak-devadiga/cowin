@@ -8,8 +8,6 @@ import { TabsPageRoutingModule } from './tabs-page-routing.module';
 import { HealthModule } from '../health/health.module';
 import { NewsModule } from '../news/news.module';
 import { AnalyticsModule } from '../analytics/analytics.module';
-import { SessionDetailModule } from '../session-detail/session-detail.module';
-import { SpeakerDetailModule } from '../speaker-detail/speaker-detail.module';
 import { VaccinationModule } from '../vaccination/vaccination.module';
 
 
@@ -21,8 +19,6 @@ import { VaccinationModule } from '../vaccination/vaccination.module';
     IonicModule,
     NewsModule,
     AnalyticsModule,
-    SessionDetailModule,
-    SpeakerDetailModule,
     VaccinationModule,
     TabsPageRoutingModule
   ],

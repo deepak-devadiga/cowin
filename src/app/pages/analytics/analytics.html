@@ -109,7 +109,9 @@
                   <ion-label color="dark">Confirmed</ion-label>
                   <ion-chip class="confirmed" slot="end">
                     <!-- <ion-icon name="heart" color="confirmed"></ion-icon> -->
-                    <ion-label color="confirmed">{{numberFormatting(totalLatestData[0])}}</ion-label>
+                    <ion-label color="confirmed" *ngIf="totalLatestData[0] !== undefined">
+                      {{numberFormatting(totalLatestData[0])}}</ion-label>
+                    <ion-spinner name="dots" *ngIf="totalLatestData[0] == undefined"></ion-spinner>
                   </ion-chip>
                 </ion-item>
               </ion-col>
@@ -118,7 +120,9 @@
                   <ion-label color="dark">Deceased</ion-label>
                   <ion-chip class="deceased" slot="end">
                     <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
-                    <ion-label color="deceased">{{numberFormatting(totalLatestData[1])}}</ion-label>
+                    <ion-label color="deceased" *ngIf="totalLatestData[1] !== undefined">
+                      {{numberFormatting(totalLatestData[1])}}</ion-label>
+                    <ion-spinner name="dots" *ngIf="totalLatestData[1] == undefined"></ion-spinner>
                   </ion-chip>
                 </ion-item>
               </ion-col>
@@ -128,8 +132,9 @@
                 <ion-item>
                   <ion-label color="dark">Recovered</ion-label>
                   <ion-chip class="recovered" slot="end">
-                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
-                    <ion-label color="recovered">{{numberFormatting(totalLatestData[2])}}</ion-label>
+                    <ion-label color="recovered" *ngIf="totalLatestData[2] !== undefined">
+                      {{numberFormatting(totalLatestData[2])}}</ion-label>
+                    <ion-spinner name="dots" *ngIf="totalLatestData[2] == undefined"></ion-spinner>
                   </ion-chip>
                 </ion-item>
               </ion-col>

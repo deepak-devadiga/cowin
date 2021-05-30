@@ -60,7 +60,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
     this.getInitData();
   }
   scrollListener(e) {
-    if (e.detail.scrollTop > 600)
+    if (e.detail.scrollTop > 500)
       this.showFab = true;
     else
       this.showFab = false;
@@ -154,12 +154,21 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   calculateLatestCases() {
     const temp = new Date(this.stateAnalytics.data.meta.last_updated)
     this.lastUpdatedAt = temp.toLocaleString('en-IN', { hour12: true, month: 'long', day: '2-digit', weekday: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    this.totalLatestData = [
+      undefined,
+      undefined,
+      undefined,
+      // this.stateAnalytics.data.delta.confirmed - (this.stateAnalytics.data.total.deceased + this.stateAnalytics.data.total.recovered),
+    ];
     if (this.stateAnalytics.data.delta == undefined) {
       this.latestDataIssue.status = true;
       this.latestDataIssue.type = DataIssue.UNDER_PROCESS;
     } else if (this.stateAnalytics.data.delta.confirmed == undefined || this.stateAnalytics.data.delta.deceased == undefined || this.stateAnalytics.data.delta.recovered == undefined) {
       this.latestDataIssue.status = true;
       this.latestDataIssue.type = DataIssue.PARTIAL_DATA;
+      this.totalLatestData[0] = this.stateAnalytics.data.delta.confirmed || undefined;
+      this.totalLatestData[1] = this.stateAnalytics.data.delta.deceased || undefined;
+      this.totalLatestData[2] = this.stateAnalytics.data.delta.recovered || undefined;
     } else {
       this.latestDataIssue.status = false;
       this.latestDataIssue.type = null;

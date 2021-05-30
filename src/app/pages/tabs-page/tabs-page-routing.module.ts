@@ -15,10 +15,6 @@ const routes: Routes = [
           {
             path: '',
             component: AnalyticsPage,
-          },
-          {
-            path: 'session/:sessionId',
-            loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
           }
         ]
       },
@@ -28,14 +24,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../vaccination/vaccination.module').then(m => m.VaccinationModule)
-          },
-          {
-            path: 'session/:sessionId',
-            loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
-          },
-          {
-            path: 'speaker-details/:speakerId',
-            loadChildren: () => import('../speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule)
           }
         ]
       },
