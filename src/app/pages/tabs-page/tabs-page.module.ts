@@ -5,8 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPage } from './tabs-page';
 import { TabsPageRoutingModule } from './tabs-page-routing.module';
 
-import { AboutModule } from '../about/about.module';
-import { MapModule } from '../map/map.module';
+import { HealthModule } from '../health/health.module';
+import { NewsModule } from '../news/news.module';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { SessionDetailModule } from '../session-detail/session-detail.module';
 import { SpeakerDetailModule } from '../speaker-detail/speaker-detail.module';
@@ -16,10 +16,10 @@ import { VaccinationModule } from '../vaccination/vaccination.module';
 
 @NgModule({
   imports: [
-    AboutModule,
+    HealthModule,
     CommonModule,
     IonicModule,
-    MapModule,
+    NewsModule,
     AnalyticsModule,
     SessionDetailModule,
     SpeakerDetailModule,

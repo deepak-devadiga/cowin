@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import { BehaviorSubject, forkJoin, interval, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Config, IonContent } from '@ionic/angular';
+import { forkJoin, interval } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { AnalyticsColor } from '../../enums/analytics-color.enum';
 import { DataIssue } from '../../enums/data-issue.enum';
@@ -9,9 +8,7 @@ import { AnalyticsModel } from '../../models/Analytics.model';
 import { State } from '../../models/State.model';
 import { AnalyticsService } from '../../providers/analytics.service';
 
-import { ConferenceData } from '../../providers/conference-data';
 import { GeographicService } from '../../providers/geographic.service';
-import { UserData } from '../../providers/user-data';
 
 @Component({
   selector: 'page-analytics',
@@ -47,16 +44,29 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   showChart: boolean = false;
   latestDataIssue: { type: DataIssue, status: boolean } = { type: null, status: false };
   dataIssue: { type: DataIssue, status: boolean } = { type: null, status: false };
+  colors = AnalyticsColor;
+  showFab: boolean = false;
+
+  @ViewChild('pageContent') pageContent: IonContent;
 
   constructor(public config: Config, private analyticsSrv: AnalyticsService, private geoSrv: GeographicService) { }
 
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
-    this.getInitData();
+
   }
 
+  ionViewWillEnter() {
+    this.getInitData();
+  }
+  scrollListener(e) {
+    if (e.detail.scrollTop > 600)
+      this.showFab = true;
+    else
+      this.showFab = false;
+  }
 
-  getInitData() {
+  async getInitData() {
     forkJoin([this.geoSrv.getStates(), this.analyticsSrv.getCovidCount()]).subscribe(([allStates, covidCount]: any) => {
       console.log('getStates ', allStates, 'covidCount', covidCount);
       this.allStates = allStates.states;
@@ -67,15 +77,23 @@ export class AnalyticsPage implements OnInit, OnDestroy {
 
   }
   getStateWiseCovidCount() {
-    this.intervalInstance = interval(2 * 60 * 1000)
+
+    this.intervalInstance = interval(5 * 60 * 1000)
       .pipe(
         mergeMap(() => this.analyticsSrv.getCovidCount())
       )
       .subscribe(data => {
         this.stateWiseCount = data;
         if (this.analyticsData.findIndex(data => data.state_acronym == 'IN') < 0)
-          this.combineStateWithCount()
+          this.combineStateWithCount();
+
       })
+  }
+
+  async doRefresh(event) {
+    console.log('Begin async operation');
+    await this.getInitData()
+    event.target.complete();
   }
 
 
@@ -169,5 +187,15 @@ export class AnalyticsPage implements OnInit, OnDestroy {
 
   compareWith(o1: AnalyticsModel, o2: AnalyticsModel) {
     return o1 && o2 ? o1.state_id === o2.state_id : o1 === o2;
+  }
+
+  gotoTop() {
+    this.pageContent.scrollToTop(500);
+  }
+
+  numberFormatting(number) {
+
+    if (number !== undefined)
+      return number.toLocaleString('en-IN')
   }
 }

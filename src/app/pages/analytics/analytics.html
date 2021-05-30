@@ -20,8 +20,10 @@
   </ion-row>
 </ion-header>
 
-<ion-content fullscreen="true">
-
+<ion-content fullscreen="true" [scrollEvents]="true" (ionScroll)="scrollListener($event)" #pageContent>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-grid>
     <ion-row>
@@ -35,12 +37,50 @@
           </div>
 
           <ion-card-header>
-            <ion-card-subtitle>Latest by {{overallLastUpdatedAt}}</ion-card-subtitle>
-            <ion-card-title>Overall Cases</ion-card-title>
+            <ion-card-subtitle color="medium">updated on {{overallLastUpdatedAt}}</ion-card-subtitle>
+            <ion-card-title color="primary">Overall Cases</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-            Wisconsin Territory in 1836.
+          <ion-card-content class="card-content">
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Confirmed</ion-label>
+                  <ion-chip class="confirmed" slot="end">
+                    <!-- <ion-icon name="heart" color="confirmed"></ion-icon> -->
+                    <ion-label color="confirmed">{{numberFormatting(totalData[0])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Deceased</ion-label>
+                  <ion-chip class="deceased" slot="end">
+                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
+                    <ion-label color="deceased">{{numberFormatting(totalData[1])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Recovered</ion-label>
+                  <ion-chip class="recovered" slot="end">
+                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
+                    <ion-label color="recovered">{{numberFormatting(totalData[2])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Active</ion-label>
+                  <ion-chip class="active" slot="end">
+                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
+                    <ion-label color="active">{{numberFormatting(totalData[3])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
         </ion-card>
 
@@ -59,12 +99,41 @@
           </div>
           <data-issue [dataIssueType]="latestDataIssue?.type" *ngIf="latestDataIssue?.status"></data-issue>
           <ion-card-header>
-            <ion-card-subtitle> Latest by {{lastUpdatedAt}}</ion-card-subtitle>
-            <ion-card-title>Latest Cases</ion-card-title>
+            <ion-card-subtitle color="medium"> updated on {{lastUpdatedAt}}</ion-card-subtitle>
+            <ion-card-title color="primary">Latest Cases</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-            Wisconsin Territory in 1836.
+          <ion-card-content class="card-content">
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Confirmed</ion-label>
+                  <ion-chip class="confirmed" slot="end">
+                    <!-- <ion-icon name="heart" color="confirmed"></ion-icon> -->
+                    <ion-label color="confirmed">{{numberFormatting(totalLatestData[0])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Deceased</ion-label>
+                  <ion-chip class="deceased" slot="end">
+                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
+                    <ion-label color="deceased">{{numberFormatting(totalLatestData[1])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <ion-item>
+                  <ion-label color="dark">Recovered</ion-label>
+                  <ion-chip class="recovered" slot="end">
+                    <!-- <ion-icon name="heart" color="dark"></ion-icon> -->
+                    <ion-label color="recovered">{{numberFormatting(totalLatestData[2])}}</ion-label>
+                  </ion-chip>
+                </ion-item>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
         </ion-card>
 
@@ -72,5 +141,9 @@
     </ion-row>
   </ion-grid>
 
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="showFab" (click)="gotoTop()">
+    <ion-fab-button color="dark" size="small">
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline" color="secondary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -1,3 +1,14 @@
+$confirmed-rgb: rgb(20, 54, 66);
+$confirmed-hex: #143642;
+$active-rgb: rgb(236, 154, 41);
+$active-hex: #ec9a29;
+$deceased-rgb: rgb(218, 210, 216);
+$deceased-hex: #dad2d8;
+$recovered-rgb: rgb(15, 141, 143);
+$recovered: #0f8d8f;
+$new-rgb: rgb(168, 32, 26);
+$new-hex: #a8201a;
+
 ion-fab-button {
   --background: var(--ion-color-step-150, #fff);
   --background-hover: var(--ion-color-step-200, #f2f2f2);
@@ -36,4 +47,33 @@ $categories: (
 
 .card-chart {
   padding: 0px 10px;
+}
+
+.card-content {
+  ion-item {
+    --padding-start: 0;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+}
+
+.confirmed {
+  color: rgba($confirmed-rgb, 1);
+  background-color: rgba($confirmed-rgb, 0.15);
+}
+.deceased {
+  color: rgba($deceased-rgb, 1);
+  background-color: rgba($deceased-rgb, 0.15);
+}
+.active {
+  color: rgba($active-rgb, 1);
+  background-color: rgba($active-rgb, 0.15);
+}
+.new {
+  color: rgba($new-rgb, 1);
+  background-color: rgba($new-rgb, 0.15);
+}
+.recovered {
+  color: rgba($recovered-rgb, 1);
+  background-color: rgba($recovered-rgb, 0.15);
 }

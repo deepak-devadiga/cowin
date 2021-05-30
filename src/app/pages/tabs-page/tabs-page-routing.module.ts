@@ -40,20 +40,20 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'map',
+        path: 'news',
         children: [
           {
             path: '',
-            loadChildren: () => import('../map/map.module').then(m => m.MapModule)
+            loadChildren: () => import('../news/news.module').then(m => m.NewsModule)
           }
         ]
       },
       {
-        path: 'about',
+        path: 'health',
         children: [
           {
             path: '',
-            loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
+            loadChildren: () => import('../health/health.module').then(m => m.HealthModule)
           }
         ]
       },

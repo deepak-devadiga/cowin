@@ -33,7 +33,8 @@
 
 @import "./app/app.scss";
 
-html {
+html,
+body {
   scroll-behavior: smooth;
 }
 
@@ -101,4 +102,8 @@ ion-card {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   -moz-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+ion-button {
+  color: #fff;
 }
