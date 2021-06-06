@@ -1,10 +1,11 @@
 <ion-header translucent="true">
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Covid Analytics</ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
+  <app-header [headerData]="headerData"></app-header>
   <ion-row>
     <ion-col class="ion-no-padding">
       <ion-item>

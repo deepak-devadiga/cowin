@@ -90,7 +90,10 @@ ion-header::after {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-
+.MLR-30 {
+  margin-left: 30px;
+  margin-right: 30px;
+}
 .horizontal-line {
   width: 100%;
   border: 0.1px solid #ccc;
@@ -132,5 +135,13 @@ ion-button {
     100% {
       text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
     }
+  }
+}
+
+.notification-custom-class {
+  .popover-content {
+    --background: #222 !important;
+    --height: 80vh;
+    --width: 90vw;
   }
 }

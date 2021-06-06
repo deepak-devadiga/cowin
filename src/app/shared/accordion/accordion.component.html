@@ -31,16 +31,29 @@
 
           </ion-row>
           <!-- <div class="horizontal-line"></div> -->
-          <ion-row>
+          <ion-row class="MLR-30">
             <ion-col size=6 class="ion-text-end">
-              <ion-chip [color]="slot.dose1Capacity > 5 ? 'success' : slot.dose1Capacity == 0 ? 'danger' : 'warning'">
-                <ion-label>Dose 1</ion-label>
-              </ion-chip>
+              <div class="vaccine-availability">
+                <ion-chip [disabled]="slot.dose1Capacity == 0"
+                  [color]="slot.dose1Capacity > 5 ? 'success' : slot.dose1Capacity == 0 ? 'danger' : 'warning'">
+                  <ion-label>Dose 1</ion-label>
+                </ion-chip>
+                <ion-text class="badge"
+                  [color]="slot.dose1Capacity > 5 ? 'success' : slot.dose1Capacity == 0 ? 'danger' : 'warning'">
+                  {{slot.dose1Capacity}}</ion-text>
+              </div>
+
             </ion-col>
             <ion-col size=6 class="ion-text-start">
-              <ion-chip [color]="slot.dose2Capacity > 5 ? 'success' : slot.dose2Capacity == 0 ? 'danger' : 'warning'">
-                <ion-label>Dose 2</ion-label>
-              </ion-chip>
+              <div class="vaccine-availability">
+                <ion-chip [color]="slot.dose2Capacity > 5 ? 'success' : slot.dose2Capacity == 0 ? 'danger' : 'warning'"
+                  [disabled]="slot.dose2Capacity == 0">
+                  <ion-label>Dose 2</ion-label>
+                </ion-chip>
+                <ion-text class="badge"
+                  [color]="slot.dose1Capacity > 5 ? 'success' : slot.dose1Capacity == 0 ? 'danger' : 'warning'">
+                  {{slot.dose2Capacity}}</ion-text>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>

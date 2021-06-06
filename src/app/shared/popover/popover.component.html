@@ -1,0 +1,21 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Notifications</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-grid class="notification-section">
+    <ion-row *ngFor="let log of logs" class="notification-card">
+      <ion-col size="12">
+        <ion-note>{{log.date}}</ion-note>
+      </ion-col>
+      <ion-col size="12" *ngFor="let item of log.data" [innerHTML]="sanitizeHTML(item)" class="update-section">
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

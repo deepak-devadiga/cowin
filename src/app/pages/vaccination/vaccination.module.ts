@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AccordionComponent } from '../../shared/accordion/accordion.component';
 import { CalendarComponent } from '../../shared/calendar/calendar.component';
 import { NoDataComponent } from '../../shared/no-data/no-data.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { NoDataComponent } from '../../shared/no-data/no-data.component';
     IonicModule,
     VaccinationPageRoutingModule,
     FormsModule,
+    SharedModule
   ],
   declarations: [VaccinationPage, AccordionComponent, CalendarComponent, NoDataComponent],
 })

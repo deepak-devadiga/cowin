@@ -1,0 +1,11 @@
+<!-- <ion-header> -->
+<ion-toolbar>
+  <ion-buttons slot="start" *ngIf="headerData.isMenuRequired">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title>{{headerData.title}}</ion-title>
+  <ion-buttons slot="end" *ngIf="headerData.isBellRequired" class="bell" (click)="openNotifications()">
+    <ion-icon slot="icon-only" [name]="bellOpened ? 'notifications-off' : 'notifications-outline'"></ion-icon>
+  </ion-buttons>
+</ion-toolbar>
+<!-- </ion-header> -->

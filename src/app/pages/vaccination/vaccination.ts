@@ -47,6 +47,11 @@ export class VaccinationPage {
   slotsData: SlotData[] = [];
   calendarFormat: Calendar;
   resultsReady: boolean = false;
+  headerData = {
+    title: "Vaccination",
+    isMenuRequired: true,
+    isBellRequired: true
+  }
 
   resultPoint: any = null;
   constructor(private geoGraphSrv: GeographicService, private vaccineSrv: VaccineService, private utilitySrv: UtilityProvider) { }
@@ -95,7 +100,6 @@ export class VaccinationPage {
     this.vaccineSrv.findAvailableVaccineCenter(this.selectedSearchOption, this.selectedSearchOption == SearchBy.DISTRICT ? this.selectedDistrict.district_id : null, this.selectedSearchOption == SearchBy.PINCODE ? this.pincode : null).subscribe((results: VaccineCenter[]) => {
       this.resultsReady = true;
       this.availableCenters = results;
-      console.log('this.availableCenters', this.availableCenters);
 
       if (this.availableCenters.length > 0)
         this.showSlots = true;
@@ -131,7 +135,6 @@ export class VaccinationPage {
         temp['dose2Capacity'] = slot.available_capacity_dose2;
         slots.push(temp);
       });
-      console.log('all slots ', slots);
       if (slots.length > 0) {
         const temp = {
           date: slots[0].date,

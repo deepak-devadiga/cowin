@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 import { UserData } from './providers/user-data';
 import { Spinkit } from 'ng-http-loader';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderExcludes } from './providers/api-url.contants';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  public LoaderComponent = LoaderComponent
+  public LoaderComponent = LoaderComponent;
+  LoaderExcludes = LoaderExcludes;
   appPages = [
     {
       title: 'Analytics',

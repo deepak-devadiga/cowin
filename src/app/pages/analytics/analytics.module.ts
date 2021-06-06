@@ -8,6 +8,7 @@ import { AnalyticsPageRoutingModule } from './analytics-routing.module';
 import { ChartComponent } from '../../shared/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { DataIssueComponent } from '../../shared/data-issue/data-issue.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { DataIssueComponent } from '../../shared/data-issue/data-issue.component
     FormsModule,
     IonicModule,
     AnalyticsPageRoutingModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   declarations: [
     AnalyticsPage,

@@ -1,0 +1,25 @@
+.notification-section {
+  padding: 10px;
+  .notification-card {
+    font-size: 0.8em;
+    border-radius: 5px;
+    .update-section {
+      background: #ccc;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+  }
+}
+ion-header,
+ion-toolbar {
+  --border: none;
+  --border-width: 0 !important;
+  --background: #fff;
+  .header-background,
+  .toolbar-background {
+    --background: var(--ion-color-dark);
+  }
+  &::after {
+    --background: none;
+  }
+}

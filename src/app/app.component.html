@@ -23,5 +23,6 @@
 </ion-app>
 
 <ng-http-loader [backdrop]="true" [debounceDelay]="100" [extraDuration]="0" [minDuration]="300"
-  [backdropBackgroundColor]="'#eee'" opacity="0.6" [entryComponent]="LoaderComponent">
+  [backdropBackgroundColor]="'#eee'" opacity="0.6" [entryComponent]="LoaderComponent"
+  [filteredUrlPatterns]="LoaderExcludes">
 </ng-http-loader>

@@ -36,7 +36,10 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   totalData = [];
   totalLabel = [];
   totalColors = [];
-  dimension: { width: number; height: number; };
+  dimension: { width: number; height: number; } = {
+    width: (screen.width - 40),
+    height: (screen.width - 80)
+  };
   overallLastUpdatedAt: string;
   totalLatestData: any[] = [];
   totalLatestLabel: string[] = [];
@@ -46,6 +49,11 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   dataIssue: { type: DataIssue, status: boolean } = { type: null, status: false };
   colors = AnalyticsColor;
   showFab: boolean = false;
+  headerData = {
+    title: "Analytics",
+    isMenuRequired: true,
+    isBellRequired: true
+  }
 
   @ViewChild('pageContent') pageContent: IonContent;
 
@@ -53,7 +61,6 @@ export class AnalyticsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
-
   }
 
   ionViewWillEnter() {
@@ -66,7 +73,7 @@ export class AnalyticsPage implements OnInit, OnDestroy {
       this.showFab = false;
   }
 
-  async getInitData() {
+  getInitData() {
     forkJoin([this.geoSrv.getStates(), this.analyticsSrv.getCovidCount()]).subscribe(([allStates, covidCount]: any) => {
       console.log('getStates ', allStates, 'covidCount', covidCount);
       this.allStates = allStates.states;
@@ -78,21 +85,17 @@ export class AnalyticsPage implements OnInit, OnDestroy {
   }
   getStateWiseCovidCount() {
 
-    this.intervalInstance = interval(5 * 60 * 1000)
-      .pipe(
-        mergeMap(() => this.analyticsSrv.getCovidCount())
-      )
-      .subscribe(data => {
-        this.stateWiseCount = data;
-        if (this.analyticsData.findIndex(data => data.state_acronym == 'IN') < 0)
-          this.combineStateWithCount();
+    this.analyticsSrv.getCovidCount().subscribe(data => {
+      this.stateWiseCount = data;
+      if (this.analyticsData.findIndex(data => data.state_acronym == 'IN') < 0)
+        this.combineStateWithCount();
+    })
 
-      })
   }
 
   async doRefresh(event) {
     console.log('Begin async operation');
-    await this.getInitData()
+    await this.getStateWiseCovidCount();
     event.target.complete();
   }
 
@@ -145,10 +148,10 @@ export class AnalyticsPage implements OnInit, OnDestroy {
       backgroundColor: [AnalyticsColor.CONFIRMED, AnalyticsColor.DECEASED, AnalyticsColor.RECOVERED, AnalyticsColor.ACTIVE]
     }];
 
-    this.dimension = {
-      width: (screen.width - 40),
-      height: (screen.width - 80)
-    }
+    // this.dimension = {
+    //   width: (screen.width - 40),
+    //   height: (screen.width - 80)
+    // }
   }
 
   calculateLatestCases() {
@@ -185,10 +188,10 @@ export class AnalyticsPage implements OnInit, OnDestroy {
         backgroundColor: [AnalyticsColor.CONFIRMED, AnalyticsColor.DECEASED, AnalyticsColor.RECOVERED, AnalyticsColor.ACTIVE]
       }];
 
-      this.dimension = {
-        width: (screen.width - 40),
-        height: (screen.width - 80)
-      }
+      // this.dimension = {
+      //   width: (screen.width - 40),
+      //   height: (screen.width - 80)
+      // }
     }
     console.log('latestDataIssue', this.latestDataIssue);
 

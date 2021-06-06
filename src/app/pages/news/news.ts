@@ -8,6 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./news.scss']
 })
 export class NewsPage {
+  headerData = {
+    title: "Covid News",
+    isMenuRequired: true,
+    isBellRequired: true
+  }
 
   constructor() { }
 

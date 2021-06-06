@@ -24,7 +24,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
+      enabled: true
     }),
     NgHttpLoaderModule.forRoot()
   ],

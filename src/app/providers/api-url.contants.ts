@@ -25,12 +25,13 @@ export const API_CONSTANTS = {
   ANALYTICS: {
     TYPE: URLTYPE.ANALYTICS,
     URL: {
-      COUNT: '/v4/min/data.min.json'
+      COUNT: '/v4/min/data.min.json',
+      LOGS: '/updatelog/log.json'
     }
   }
 }
 
 
 export const LoaderExcludes = [
-
+  'log.json'
 ]
